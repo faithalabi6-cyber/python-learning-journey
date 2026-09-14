@@ -1,0 +1,42 @@
+{
+    "inventory": [
+        {
+            "name": "Club de nuit",
+            "brand": "Armaf",
+            "price": 60000,
+            "size": 100,
+            "stock": 10
+        },
+        {
+            "name": "Al fursan",
+            "brand": "Lattafa",
+            "price": 30000,
+            "size": 100,
+            "stock": 3
+        },
+        {
+            "name": "Berry weekend",
+            "brand": "summercent",
+            "price": 4500,
+            "size": 25,
+            "stock": 2
+        },
+        {
+            "name": "New musk",
+            "brand": "smart",
+            "price": 18000,
+            "size": 100,
+            "stock": 5
+        },
+        {
+            "name": "Hyatti",
+            "brand": "Lattafa",
+            "price": 25000,
+            "size": 100,
+            "stock": 10
+        }
+    ],
+    "sales": [
+        25000
+    ]
+}

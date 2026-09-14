@@ -13,9 +13,10 @@ This repository documents my progress, projects, and the concepts I learn as I c
 * ATM Machine
 * Student Record System
 * Kitchen Calculator
+* SCENTSBYLARAH Inventory & Sales System 
+A Python basics project that manages perfumes, stock, sales, and saves data using JSON.
 
 More projects coming as I continue learning.
-
 ## Skills I'm Developing
 
 * Python
