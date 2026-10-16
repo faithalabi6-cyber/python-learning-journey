@@ -1,3 +1,6 @@
+# ==========================================
+#              SUDOKU GAME
+# ==========================================
 
 
 # 1. Create a variable board with a list to represent the board
@@ -15,158 +18,151 @@ board = [
 ]
 
 
-# 2. Create a function that is able to display the board
+# 2. Create a function that displays the board
 
 def display_board():
 
-    # We want to go through each row in the board
+    # Go through each row in the board
     for row in board:
 
-        # After checking each row, loop through each number
+        # Go through each number in the row
         for number in row:
 
-            # Print numbers in the same row
+            # Display the number in the same row
             print(number, end=" ")
 
-        # The row is finished, move to the next line
+        # Move to the next line after each row
         print()
 
 
-# 3. Check if our board is complete or not
+# 3. Check whether the board is complete
 
 def is_complete():
 
+    # Check each row
     for row in board:
 
+        # Check each number in the row
         for number in row:
 
-            # If a zero still exists, the board is not complete
+            # If a zero exists, the board is incomplete
             if number == 0:
                 return False
 
+    # No zeros remain
     return True
 
 
-# 4. We want the player to enter a move
+# 4. Check whether a move is valid
 
-while True:
+def is_valid_move(row, column, number):
 
-    # Get the row
-    row = int(input("Enter row (0-8): "))
-
-    # Get the column
-    column = int(input("Enter column (0-8): "))
-
-    # Get the number
-    number = int(input("Enter number (1-9): "))
-
-
-    # 5. Check that row and column are valid
-
-    if row < 0 or row > 8:
-        print("Invalid row. Enter a number from 0 to 8.")
-        continue
-
-    if column < 0 or column > 8:
-        print("Invalid column. Enter a number from 0 to 8.")
-        continue
-
-
-    # Check that number is between 1 and 9
-
-    if number < 1 or number > 9:
-        print("Invalid number. Enter a number from 1 to 9.")
-        continue
-
-
-    # 6. Check if the cell is empty
-
-    if board[row][column] == 0:
-
-        print("The cell is empty")
-
-    else:
-
-        print("The cell is occupied")
-
-        # Do not continue checking this move
-        continue
-
-
-    # 7. Set found to False because we are looking for
-    # a number that would make the move invalid
-
-    found = False
-
-
-    # 8. Check the row
-
-    # We want to check each value in the row
+    # Check the row
     for value in board[row]:
 
-        # Check if the value is the same as our number
         if value == number:
-
             print("Invalid move: Number already exists in this row")
+            return False
 
-            found = True
-
-
-    # 9. Check the column
-
+    # Check the column
     for i in range(9):
 
         value = board[i][column]
 
         if value == number:
-
             print("Invalid move: Number already exists in this column")
+            return False
 
-            found = True
-
-
-    # 10. Find the starting position of the 3x3 box
-
+    # Find the starting position of the 3x3 box
     box_row = (row // 3) * 3
     box_column = (column // 3) * 3
 
-
-    # 11. Check the 3x3 box
-
-    # i represents the row inside the 3x3 box
+    # Check the 3x3 box
     for i in range(3):
 
-        # j represents the column inside the 3x3 box
         for j in range(3):
 
-            # Give me the cell at the current row and column
             value = board[box_row + i][box_column + j]
 
-
-            # Check if the value is equal to our number
             if value == number:
-
                 print("Invalid move: Number already exists in the box")
+                return False
 
-                found = True
+    # The move is valid if no duplicate is found
+    return True
 
 
-    # 12. ONLY place the number AFTER checking
-    # the row, column and box
+# 5. Start the game
 
-    if not found:
+print("========== SUDOKU GAME ==========")
 
+display_board()
+
+
+# 6. Ask the player to enter moves
+
+while True:
+
+    # Check whether the board is complete
+    if is_complete():
+
+        print("Congratulations! Sudoku complete!")
+        break
+
+    # Get the player's input
+    try:
+
+        row = int(input("Enter row (0-8): "))
+        column = int(input("Enter column (0-8): "))
+        number = int(input("Enter number (1-9): "))
+
+    except ValueError:
+
+        print("Invalid input. Please enter numbers only.")
+        continue
+
+    # 7. Check that the row is valid
+
+    if row < 0 or row > 8:
+
+        print("Invalid row. Enter a number from 0 to 8.")
+        continue
+
+    # 8. Check that the column is valid
+
+    if column < 0 or column > 8:
+
+        print("Invalid column. Enter a number from 0 to 8.")
+        continue
+
+    # 9. Check that the number is valid
+
+    if number < 1 or number > 9:
+
+        print("Invalid number. Enter a number from 1 to 9.")
+        continue
+
+    # 10. Check whether the cell is empty
+
+    if board[row][column] != 0:
+
+        print("The cell is occupied. Choose an empty cell.")
+        continue
+
+    # 11. Validate the move before placing the number
+
+    if is_valid_move(row, column, number):
+
+        # Place the number on the board
         board[row][column] = number
 
         print("Move accepted!")
 
+        # Display the updated board
         display_board()
 
+    else:
 
-    # 13. Check if the Sudoku is complete
-
-    if is_complete():
-
-        print("Congratulations! Sudoku complete!")
-
-        break
+        # Reject the invalid move
+        print("Please try another move.")
+        continue
